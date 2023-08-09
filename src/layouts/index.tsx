@@ -11,13 +11,11 @@ const BasicLayout: React.FC<Props> = () => {
   return (
     <Layout>
       <LayoutHeader />
-      <Layout className='flex'>
+      <Layout className="flex h-[calc(100vh-64px)]">
         <LayoutMenu />
-        <Layout>
-          <Content>
-            <Outlet />
-          </Content>
-        </Layout>
+        <Content className="m-5">
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   )
