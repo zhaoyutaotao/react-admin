@@ -38,8 +38,11 @@ const AvatarUser = () => {
   ]
   return (
     <Dropdown menu={{ items }} placement="bottom" arrow>
-      <Space>
-        <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>A</Avatar>admin
+      <Space className="cursor-pointer" >
+        <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>
+          A
+        </Avatar>
+        admin
       </Space>
     </Dropdown>
   )

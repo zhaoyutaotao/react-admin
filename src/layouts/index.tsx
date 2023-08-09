@@ -11,7 +11,7 @@ const BasicLayout: React.FC<Props> = () => {
   return (
     <Layout>
       <LayoutHeader />
-      <Layout>
+      <Layout className='flex'>
         <LayoutMenu />
         <Layout>
           <Content>
