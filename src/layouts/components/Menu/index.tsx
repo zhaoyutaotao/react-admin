@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Menu, Layout } from 'antd'
+import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd'
 import { getOpenKeys } from 'src/utils/util'
 const { Sider } = Layout
@@ -30,11 +31,13 @@ const LayoutMenu = () => {
   const items = [
     {
       key: '/home',
-      label: '首页'
+      label: '首页',
+      icon: <AppstoreOutlined/>
     },
     {
       key: '/system',
       label: '系统管理',
+      icon: <SettingOutlined />,
       children: [{ key: '/system/menu', label: '菜单管理' }]
     }
   ]

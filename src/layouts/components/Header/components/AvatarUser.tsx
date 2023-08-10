@@ -1,13 +1,14 @@
-import { Avatar, Space, Modal, Dropdown, message } from 'antd'
+import { Avatar, Space, Dropdown, App } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import type { MenuProps } from 'antd'
 
 const AvatarUser = () => {
+  const { message, modal } = App.useApp()
   const navigate = useNavigate()
 
   // 退出登录
   const onLogout = () => {
-    Modal.confirm({
+    modal.confirm({
       title: '温馨提示',
       content: '是否确认退出登录？',
       okText: '确认',
@@ -38,10 +39,8 @@ const AvatarUser = () => {
   ]
   return (
     <Dropdown menu={{ items }} placement="bottom" arrow>
-      <Space className="cursor-pointer" >
-        <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>
-          A
-        </Avatar>
+      <Space className="cursor-pointer">
+        <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>A</Avatar>
         admin
       </Space>
     </Dropdown>

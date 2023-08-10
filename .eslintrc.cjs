@@ -28,6 +28,17 @@ module.exports = {
   },
   // 配置插件,可以定义规则，环境或配置的第三方模块
   plugins: ['@typescript-eslint', 'react'],
-  // 规则配置
-  rules: {}
+  /**
+   * 规则配置
+   * off 关闭
+   * warn 警告（不影响代码执行）
+   * error 错误（代码不能执行，界面报错）
+   */
+  rules: {
+    // eslint http://eslint.cn/docs/rules
+    "no-var": "error", // 要求使用 let 或 const 而不是 var
+
+    // typeScript https://typescript-eslint.io/rules
+    "@typescript-eslint/no-explicit-any": "off", // 禁止使用 any 类型
+  }
 }
