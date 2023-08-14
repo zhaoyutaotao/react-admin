@@ -1,7 +1,7 @@
-import screenfull from 'screenfull'
-import { message, Tooltip } from 'antd'
-import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
+import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons'
+import { message, Tooltip } from 'antd'
+import screenfull from 'screenfull'
 
 const Fullscreen = () => {
   const [fullScreen, setFullScreen] = useState<boolean>(screenfull.isFullscreen)
@@ -19,7 +19,7 @@ const Fullscreen = () => {
     screenfull.toggle()
   }
   return (
-    <div onClick={handleFullScreen} className="text-xl cursor-pointer">
+    <div onClick={handleFullScreen} className="cursor-pointer text-xl ">
       <Tooltip title="全屏">
         {fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
       </Tooltip>

@@ -1,21 +1,23 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { Layout } from 'antd'
-import LayoutMenu from './components/Menu'
+import LayoutFooter from './components/Footer'
 import LayoutHeader from './components/Header'
+import LayoutMenu from './components/Menu'
 
 const { Content } = Layout
 
-interface Props {}
-const BasicLayout: React.FC<Props> = () => {
+const BasicLayout = () => {
   return (
     <Layout>
       <LayoutHeader />
       <Layout className="flex h-[calc(100vh-64px)]">
         <LayoutMenu />
-        <Content className="m-5">
-          <Outlet />
-        </Content>
+        <Layout>
+          <Content className="m-5">
+            <Outlet />
+          </Content>
+          <LayoutFooter />
+        </Layout>
       </Layout>
     </Layout>
   )

@@ -2,6 +2,7 @@ import { Layout, Space } from 'antd'
 import AvatarUser from './components/AvatarUser'
 import Fullscreen from './components/Fullscreen'
 import Theme from './components/Theme'
+
 const { Header } = Layout
 const LayoutHeader = () => {
   return (

@@ -1,5 +1,5 @@
-import { Avatar, Space, Dropdown, App } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { App, Avatar, Dropdown, Space } from 'antd'
 import type { MenuProps } from 'antd'
 
 const AvatarUser = () => {
@@ -9,8 +9,8 @@ const AvatarUser = () => {
   // 退出登录
   const onLogout = () => {
     modal.confirm({
-      title: '温馨提示',
-      content: '是否确认退出登录？',
+      title: '提示',
+      content: '是否退出登录？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
