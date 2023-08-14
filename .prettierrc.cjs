@@ -31,4 +31,7 @@ module.exports = {
   proseWrap: 'preserve',
   // 根据显示样式决定 html 要不要折行
   htmlWhitespaceSensitivity: 'css',
+  // import排序规则
+  importOrder: ['^react(.*)', 'antd/(.*)', '<THIRD_PARTY_MODULES>', 'src/(.*)', '^[./]'],
+  plugins: ['prettier-plugin-tailwindcss', '@trivago/prettier-plugin-sort-imports']
 }
