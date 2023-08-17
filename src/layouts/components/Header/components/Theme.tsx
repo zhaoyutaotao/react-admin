@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { SkinOutlined } from '@ant-design/icons'
-import { Radio, ColorPicker, Divider, Drawer, Switch, Tooltip } from 'antd'
+import { SkinOutlined, CheckOutlined } from '@ant-design/icons'
+import { ColorPicker, Divider, Drawer, Switch, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStores } from 'src/stores'
+import { ThemeConfig } from 'src/stores/AppStore'
 
 const Theme = observer(() => {
   const {
@@ -22,6 +23,53 @@ const Theme = observer(() => {
     document.body.setAttribute('style', style)
   }, [themeConfig.isWeak])
 
+  const themeData = [
+    {
+      label: '整体风格',
+      children: [
+        { label: '暗色模式', key: 'isDark', type: 'switch' },
+        { label: '灰色模式', key: 'isGray', type: 'switch' },
+        { label: '色弱模式', key: 'isWeak', type: 'switch' },
+        { label: '主题色', key: 'colorPrimary', type: 'colorPicker' }
+      ]
+    },
+    {
+      label: '导航模式',
+      type: 'nav',
+      children: [
+        {
+          label: '侧边菜单',
+          key: 'side',
+          type: '',
+          className:
+            'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded before:absolute before:top-0 before:left-0 before:bg-black before:w-3 before:h-full relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-white before:z-10 cursor-pointer'
+        },
+        {
+          label: '顶部菜单',
+          key: 'top',
+          type: '',
+          className:
+            'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-black before:z-10 cursor-pointer'
+        },
+        {
+          label: '混合菜单',
+          key: 'mixed',
+          type: '',
+          className:
+            'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded before:absolute before:top-0 before:left-0 before:bg-white before:w-3 before:h-full relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-black cursor-pointer'
+        }
+      ]
+    },
+    {
+      label: '内容区域',
+      children: [
+        { label: '面包屑导航', key: 'breadcrumb', type: 'switch' },
+        { label: '标签栏', key: 'tagsView', type: 'switch' },
+        { label: '页脚', key: 'footer', type: 'switch' }
+      ]
+    }
+  ]
+
   return (
     <div className="cursor-pointer text-xl">
       <Tooltip title="布局主题设置">
@@ -35,84 +83,64 @@ const Theme = observer(() => {
         open={open}
         width={350}
       >
-        <h3 className="mb-3 font-medium">整体风格</h3>
-        <div className="flex justify-between  pb-3 pt-3">
-          <span>暗色模式</span>
-          <Switch
-            checked={themeConfig.isDark}
-            onChange={(checked) => setThemeConfig({ isDark: checked })}
-          />
-        </div>
-        <div className="flex justify-between  pb-3 pt-3">
-          <span>灰色模式</span>
-          <Switch
-            checked={themeConfig.isGray}
-            onChange={(checked) => setThemeConfig({ isGray: checked })}
-          />
-        </div>
-        <div className="flex justify-between  pb-3 pt-3">
-          <span>色弱模式</span>
-          <Switch
-            checked={themeConfig.isWeak}
-            onChange={(checked) => setThemeConfig({ isWeak: checked })}
-          />
-        </div>
-        <div className="flex justify-between pb-3 pt-3">
-          <span>主题色</span>
-          <ColorPicker
-            presets={[
-              {
-                label: '默认',
-                colors: [
-                  '#F5222D',
-                  '#FA8C16',
-                  '#FADB14',
-                  '#8BBB11',
-                  '#52C41A',
-                  '#13A8A8',
-                  '#1677FF',
-                  '#2F54EB',
-                  '#722ED1',
-                  '#EB2F96'
-                ]
-              }
-            ]}
-            onChange={(color) => setThemeConfig({ colorPrimary: color.toHexString() })}
-          />
-        </div>
-        <Divider />
-        <h3 className="mb-3 font-medium">导航模式</h3>
-        <Radio.Group
-          onChange={(e) => setThemeConfig({ navMode: e.target.value })}
-          value={themeConfig.navMode}
-        >
-          <Radio value="side">侧边菜单</Radio>
-          <Radio value="top">顶部菜单</Radio>
-          <Radio value="mixed">混合菜单</Radio>
-        </Radio.Group>
-        <Divider />
-        <h3 className="mb-3 font-medium">内容区域</h3>
-        <div className="flex justify-between pb-3 pt-3">
-          <span>面包屑导航</span>
-          <Switch
-            checked={themeConfig.isGray}
-            onChange={(checked) => setThemeConfig({ breadcrumb: checked })}
-          />
-        </div>
-        <div className="flex justify-between pb-3 pt-3">
-          <span>标签栏</span>
-          <Switch
-            checked={themeConfig.isGray}
-            onChange={(checked) => setThemeConfig({ tabs: checked })}
-          />
-        </div>
-        <div className="flex justify-between pb-3 pt-3">
-          <span>页脚</span>
-          <Switch
-            checked={themeConfig.footer}
-            onChange={(checked) => setThemeConfig({ footer: checked })}
-          />
-        </div>
+        {themeData.map((item) => (
+          <div key={item.label}>
+            <Divider>{item.label}</Divider>
+            {!item.type &&
+              item.children.map((child) => (
+                <div key={child.label} className="flex justify-between  pb-3 pt-3">
+                  <span>{child.label}</span>
+                  {child.type === 'switch' && (
+                    <Switch
+                      checked={themeConfig[child.key as keyof ThemeConfig] as boolean}
+                      onChange={(checked) => setThemeConfig({ [child.key]: checked })}
+                    />
+                  )}
+                  {child.type === 'colorPicker' && (
+                    <ColorPicker
+                      presets={[
+                        {
+                          label: '默认',
+                          colors: [
+                            '#F5222D',
+                            '#FA8C16',
+                            '#FADB14',
+                            '#8BBB11',
+                            '#52C41A',
+                            '#13A8A8',
+                            '#1677FF',
+                            '#2F54EB',
+                            '#722ED1',
+                            '#EB2F96'
+                          ]
+                        }
+                      ]}
+                      onChange={(color) => setThemeConfig({ [child.key]: color.toHexString() })}
+                    />
+                  )}
+                </div>
+              ))}
+            <div className="flex">
+              {item.type === 'nav' &&
+                item.children.map((child) => (
+                  <div key={child.label}>
+                    <Tooltip title={child.label}>
+                      <div
+                        onClick={() =>
+                          setThemeConfig({ navMode: child.key as ThemeConfig['navMode'] })
+                        }
+                        className={child.className}
+                      >
+                        {themeConfig.navMode === child.key && (
+                          <CheckOutlined className=" absolute right-2 bottom-1" />
+                        )}
+                      </div>
+                    </Tooltip>
+                  </div>
+                ))}
+            </div>
+          </div>
+        ))}
       </Drawer>
     </div>
   )

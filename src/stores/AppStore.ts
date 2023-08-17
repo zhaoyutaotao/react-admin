@@ -1,39 +1,39 @@
 import { makeAutoObservable } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
-interface ThemeConfig {
+export interface ThemeConfig {
   /**
    * 是否暗黑模式
    */
-  isDark?: boolean
+  isDark: boolean
   /**
    * 是否灰色模式
    */
-  isGray?: boolean
+  isGray: boolean
   /**
    * 是否色弱模式
    */
-  isWeak?: boolean
+  isWeak: boolean
   /**
    * 主题色
    */
-  colorPrimary?: string
+  colorPrimary: string
   /**
    * 导航模式（菜单位置）
    */
-  navMode?: 'side' | 'top' | 'mixed'
+  navMode: 'side' | 'top' | 'mixed'
   /**
    * 面包屑导航
    */
-  breadcrumb?: boolean
+  breadcrumb: boolean
   /**
-   * 标签页
+   * 标签导航栏
    */
-  tabs?: boolean
+  tagsView: boolean
   /**
    * 页脚
    */
-  footer?: boolean
+  footer: boolean
 }
 class AppStore {
   themeConfig: ThemeConfig = {
@@ -41,7 +41,7 @@ class AppStore {
     isGray: false,
     isWeak: false,
     breadcrumb: true,
-    tabs: true,
+    tagsView: true,
     footer: true,
     colorPrimary: '#1677ff',
     navMode: 'mixed'
@@ -57,7 +57,7 @@ class AppStore {
     })
   }
   // 是否主题样式
-  setThemeConfig = (config: ThemeConfig) => {
+  setThemeConfig = (config: Partial<ThemeConfig>) => {
     this.themeConfig = { ...this.themeConfig, ...config }
   }
 }
