@@ -5,6 +5,53 @@ import { observer } from 'mobx-react-lite'
 import { useStores } from 'src/stores'
 import { ThemeConfig } from 'src/stores/AppStore'
 
+const themeData = [
+  {
+    label: '整体风格',
+    children: [
+      { label: '暗色模式', key: 'isDark', type: 'switch' },
+      { label: '灰色模式', key: 'isGray', type: 'switch' },
+      { label: '色弱模式', key: 'isWeak', type: 'switch' },
+      { label: '主题色', key: 'colorPrimary', type: 'colorPicker' }
+    ]
+  },
+  {
+    label: '导航模式',
+    type: 'nav',
+    children: [
+      {
+        label: '侧边菜单',
+        key: 'side',
+        type: '',
+        className:
+          'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded before:absolute before:top-0 before:left-0 before:bg-black before:w-3 before:h-full relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-white before:z-10 cursor-pointer'
+      },
+      {
+        label: '顶部菜单',
+        key: 'top',
+        type: '',
+        className:
+          'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-black before:z-10 cursor-pointer'
+      },
+      {
+        label: '混合菜单',
+        key: 'mixed',
+        type: '',
+        className:
+          'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded before:absolute before:top-0 before:left-0 before:bg-white before:w-3 before:h-full relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-black cursor-pointer'
+      }
+    ]
+  },
+  {
+    label: '内容区域',
+    children: [
+      { label: '面包屑导航', key: 'breadcrumb', type: 'switch' },
+      { label: '标签栏', key: 'tagsView', type: 'switch' },
+      { label: '页脚', key: 'footer', type: 'switch' }
+    ]
+  }
+]
+
 const Theme = observer(() => {
   const {
     appStore: { themeConfig, setThemeConfig }
@@ -22,53 +69,6 @@ const Theme = observer(() => {
     const style = themeConfig.isWeak ? 'filter: invert(80%)' : ''
     document.body.setAttribute('style', style)
   }, [themeConfig.isWeak])
-
-  const themeData = [
-    {
-      label: '整体风格',
-      children: [
-        { label: '暗色模式', key: 'isDark', type: 'switch' },
-        { label: '灰色模式', key: 'isGray', type: 'switch' },
-        { label: '色弱模式', key: 'isWeak', type: 'switch' },
-        { label: '主题色', key: 'colorPrimary', type: 'colorPicker' }
-      ]
-    },
-    {
-      label: '导航模式',
-      type: 'nav',
-      children: [
-        {
-          label: '侧边菜单',
-          key: 'side',
-          type: '',
-          className:
-            'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded before:absolute before:top-0 before:left-0 before:bg-black before:w-3 before:h-full relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-white before:z-10 cursor-pointer'
-        },
-        {
-          label: '顶部菜单',
-          key: 'top',
-          type: '',
-          className:
-            'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-black before:z-10 cursor-pointer'
-        },
-        {
-          label: '混合菜单',
-          key: 'mixed',
-          type: '',
-          className:
-            'w-11 h-9 mr-4 bg-gray-100 shadow-md rounded before:absolute before:top-0 before:left-0 before:bg-white before:w-3 before:h-full relative overflow-hidden after:h-2 after:w-full after:absolute after:top-0 after:left-0 after:bg-black cursor-pointer'
-        }
-      ]
-    },
-    {
-      label: '内容区域',
-      children: [
-        { label: '面包屑导航', key: 'breadcrumb', type: 'switch' },
-        { label: '标签栏', key: 'tagsView', type: 'switch' },
-        { label: '页脚', key: 'footer', type: 'switch' }
-      ]
-    }
-  ]
 
   return (
     <div className="cursor-pointer text-xl">
@@ -120,9 +120,9 @@ const Theme = observer(() => {
                   )}
                 </div>
               ))}
-            <div className="flex">
-              {item.type === 'nav' &&
-                item.children.map((child) => (
+            {item.type === 'nav' && (
+              <div className="flex">
+                {item.children.map((child) => (
                   <div key={child.label}>
                     <Tooltip title={child.label}>
                       <div
@@ -138,7 +138,8 @@ const Theme = observer(() => {
                     </Tooltip>
                   </div>
                 ))}
-            </div>
+              </div>
+            )}
           </div>
         ))}
       </Drawer>
