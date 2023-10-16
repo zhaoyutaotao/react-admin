@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import {
+  AppstoreOutlined,
+  SettingOutlined,
+  BarChartOutlined,
+  LineChartOutlined
+} from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
-import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd'
 import { getOpenKeys } from 'src/utils/util'
+
 const { Sider } = Layout
 const LayoutMenu = () => {
   const { pathname } = useLocation()
@@ -32,7 +38,19 @@ const LayoutMenu = () => {
     {
       key: '/home',
       label: '首页',
-      icon: <AppstoreOutlined/>
+      icon: <AppstoreOutlined />
+    },
+    {
+      key: '/echarts',
+      label: 'Echarts',
+      icon: <BarChartOutlined />,
+      children: [{ key: '/echarts/echarts-gl', label: 'EchartsGl' }]
+    },
+    {
+      key: '/antv',
+      label: 'Antv',
+      icon: <LineChartOutlined />,
+      children: [{ key: '/antv/antv-l7', label: 'AntvL7' }]
     },
     {
       key: '/system',
