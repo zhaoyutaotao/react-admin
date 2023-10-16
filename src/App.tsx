@@ -1,5 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
+import zhCN from 'antd/locale/zh_CN'
 import { App as AntdApp, ConfigProvider, theme } from 'antd'
+import 'dayjs/locale/zh-cn'
 import { observer } from 'mobx-react-lite'
 import Router from 'src/routes'
 import { useStores } from 'src/stores'
@@ -18,7 +20,7 @@ const App = observer(() => {
   }
   return (
     <BrowserRouter>
-      <ConfigProvider theme={antdTheme}>
+      <ConfigProvider locale={zhCN} theme={antdTheme}>
         <AntdApp>
           <Router />
         </AntdApp>
