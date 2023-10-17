@@ -10,11 +10,6 @@ const homeRouter: Array<RouteObject> = [
       {
         path: '/home',
         element: <Home />,
-        meta: {
-          requiresAuth: true,
-          title: '首页',
-          key: 'home'
-        }
       }
     ]
   }

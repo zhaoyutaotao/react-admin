@@ -11,20 +11,10 @@ const echartsRouter: Array<RouteObject> = [
       {
         path: '/antv/antv-l7',
         element: <AntvL7 />,
-        meta: {
-          requiresAuth: true,
-          title: 'antv-l7',
-          key: 'antv-l7'
-        }
       },
       {
         path: '/antv/gaodeMap',
         element: <GaodeMap />,
-        meta: {
-          requiresAuth: true,
-          title: 'GaodeMap',
-          key: 'GaodeMap'
-        }
       }
     ]
   }

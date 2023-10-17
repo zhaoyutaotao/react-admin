@@ -10,11 +10,6 @@ const echartsRouter: Array<RouteObject> = [
       {
         path: '/echarts/echarts-gl',
         element: <EchartsMap />,
-        meta: {
-          requiresAuth: true,
-          title: 'EchartsGl',
-          key: 'echarts-gl'
-        }
       }
     ]
   }

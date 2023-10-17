@@ -10,11 +10,6 @@ const systemRouter: Array<RouteObject> = [
       {
         path: '/system/menu',
         element: <Menu />,
-        meta: {
-          requiresAuth: true,
-          title: '首页',
-          key: 'home'
-        }
       }
     ]
   }
