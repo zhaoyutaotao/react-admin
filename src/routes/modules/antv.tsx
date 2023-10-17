@@ -1,6 +1,7 @@
 import BasicLayout from 'src/layouts'
 import { RouteObject } from '../interface'
 import AntvL7 from 'src/pages/Antv/AntvL7'
+import GaodeMap from 'src/pages/Antv/GaodeMap'
 
 // Antv Demo
 const echartsRouter: Array<RouteObject> = [
@@ -14,6 +15,15 @@ const echartsRouter: Array<RouteObject> = [
           requiresAuth: true,
           title: 'antv-l7',
           key: 'antv-l7'
+        }
+      },
+      {
+        path: '/antv/gaodeMap',
+        element: <GaodeMap />,
+        meta: {
+          requiresAuth: true,
+          title: 'GaodeMap',
+          key: 'GaodeMap'
         }
       }
     ]

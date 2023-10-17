@@ -50,7 +50,7 @@ const LayoutMenu = () => {
       key: '/antv',
       label: 'Antv',
       icon: <LineChartOutlined />,
-      children: [{ key: '/antv/antv-l7', label: 'AntvL7' }]
+      children: [{ key: '/antv/antv-l7', label: 'AntvL7' },{ key: '/antv/GaodeMap', label: 'GaodeMap' }]
     },
     {
       key: '/system',

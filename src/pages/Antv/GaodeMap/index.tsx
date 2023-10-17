@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { Scene, PolygonLayer, LineLayer, PointLayer, Popup, Marker } from '@antv/l7'
-import { Map } from '@antv/l7-maps'
-import MapPoint from 'src/assets/images/map/point.png'
-import './index.scss'
+import { GaodeMap } from '@antv/l7-maps'
+import MapPoint from 'src/pages/Echarts/EchartsGl/point.png'
 
 const markerData = [
   {
@@ -16,7 +15,7 @@ const markerData = [
     name: '医院1'
   }
 ]
-const EchartsMap: React.FC = () => {
+const AntvGaodeMap: React.FC = () => {
   useEffect(() => {
     fetch('https://geo.datav.aliyun.com/areas_v3/bound/210000_full.json')
       .then((response) => response.json())
@@ -28,13 +27,13 @@ const EchartsMap: React.FC = () => {
     const scene = new Scene({
       id: 'map',
       logoVisible: false, // logo 是否可见
-      map: new Map({
+      map: new GaodeMap({
         center: [106.689, 30.159],
         zoom: 6,
         maxZoom: 8,
         minZoom: 4,
         pitch: 50, // 地图倾斜度
-        style: 'blank'
+        style: 'dark' // blank 无底图
       })
     })
 
@@ -65,7 +64,6 @@ const EchartsMap: React.FC = () => {
     const mapLine = new LineLayer({ zIndex: 2 })
       .source(geoJSON)
       .shape('line')
-      .texture('02')
       .color('#fff')
       .size(1)
       .style({
@@ -102,26 +100,12 @@ const EchartsMap: React.FC = () => {
         .setLnglat({ lng: item.longitude, lat: item.latitude })
         .setPopup(popup)
       scene.addMarker(marker)
-      // markerEl.addEventListener('click',(event)=> {
-      //   console.log(event);
-      //   popup.setLngLat({
-      //     lng: item.longitude,
-      //     lat: item.latitude ,s
-      //   });
-      // });
     })
-
-    // 绘制地理围栏
-    // const wall = new LineLayer().source(geoJSON).shape('wall').size(50).style({
-    //   heightfixed: true,
-    //   opacity: 0.6,
-    //   sourceColor: '#0DCCFF',
-    //   targetColor: 'rbga(255,255,255, 0)'
-    // })
-    // scene.addLayer(wall)
   }
 
-  return <div id="map" className="bg-black h-[500px]"></div>
+  return (
+      <div id="map" className="relative h-[500px]"></div>
+  )
 }
 
-export default EchartsMap
+export default AntvGaodeMap
