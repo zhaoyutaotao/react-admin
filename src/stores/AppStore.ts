@@ -35,6 +35,16 @@ export interface ThemeConfig {
    */
   footer: boolean
 }
+
+interface MenuNode {
+  key: string
+  label: string
+  icon?: string
+  children?: MenuNode[]
+}
+
+type KeyLabelObject = Record<string, string>
+
 class AppStore {
   themeConfig: ThemeConfig = {
     isDark: false,
@@ -46,6 +56,8 @@ class AppStore {
     colorPrimary: '#1677ff',
     navMode: 'mixed'
   }
+  menuList: MenuNode[] = []
+  breadcrumbNameMap: KeyLabelObject = {}
   constructor() {
     // 响应式处理
     makeAutoObservable(this)
@@ -55,10 +67,66 @@ class AppStore {
       properties: ['themeConfig'], // 需要持久化的数据是什么，此数据需要为上面声明了的变量，并且传值方式为[string]
       storage: window.localStorage //存储位置，常见的就是localStorage/sessionStorage
     })
+    this.getMemuList()
   }
   // 是否主题样式
   setThemeConfig = (config: Partial<ThemeConfig>) => {
     this.themeConfig = { ...this.themeConfig, ...config }
+  }
+  /**
+   * 获取菜单
+   */
+  getMemuList = () => {
+    this.menuList = [
+      {
+        key: '/home',
+        label: '首页',
+        icon: 'AppstoreOutlined'
+      },
+      {
+        key: '/echarts',
+        label: 'Echarts',
+        icon: 'BarChartOutlined',
+        children: [{ key: '/echarts/echarts-gl', label: 'EchartsGl' }]
+      },
+      {
+        key: '/antv',
+        label: 'Antv',
+        icon: 'LineChartOutlined',
+        children: [
+          { key: '/antv/antv-l7', label: 'AntvL7' },
+          { key: '/antv/GaodeMap', label: 'GaodeMap' }
+        ]
+      },
+      {
+        key: '/system',
+        label: '系统管理',
+        icon: 'SettingOutlined',
+        children: [
+          { key: '/system/user', label: '用户管理' },
+          { key: '/system/role', label: '角色管理' },
+          { key: '/system/menu', label: '菜单管理' }
+        ]
+      }
+    ]
+
+    this.breadcrumbNameMap = this.setBreadcrumbNameMap(this.menuList)
+  }
+  /**
+   * 设置菜单key:label对象
+   * @param menuList 菜单列表
+   * @returns {key:label}
+   */
+  setBreadcrumbNameMap = (menuList: MenuNode[]) => {
+    const result: KeyLabelObject = {}
+    function traverse(node: MenuNode) {
+      result[node.key] = node.label
+      if (node.children && node.children.length > 0) {
+        node.children.forEach((child) => traverse(child))
+      }
+    }
+    menuList.forEach((node) => traverse(node))
+    return result
   }
 }
 
