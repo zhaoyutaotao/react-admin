@@ -1,26 +1,45 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import {
-  AppstoreOutlined,
-  SettingOutlined,
-  BarChartOutlined,
-  LineChartOutlined
-} from '@ant-design/icons'
+import * as icons from '@ant-design/icons'
+import Icon from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import type { MenuProps } from 'antd'
+import { menus } from 'src/pages/System/Menu/data'
 import { getOpenKeys } from 'src/utils/util'
 
 const { Sider } = Layout
+
+//  设置菜单图标方法
+const setMenuItemIcon = (data: any[]) => {
+  data.forEach((item) => {
+    item.icon =
+      (item.icon && (icons as any)[item.icon] && <Icon component={(icons as any)[item.icon]} />) ||
+      item.icon
+    if (item.children) {
+      // 调用递归函数
+      setMenuItemIcon(item.children)
+    }
+  })
+}
+
 const LayoutMenu = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const [menuData, setMenuData] = useState<any[]>([])
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname])
   const [openKeys, setOpenKeys] = useState<string[]>([])
+
   // 刷新页面菜单保持高亮
   useEffect(() => {
     setSelectedKeys([pathname])
     setOpenKeys(getOpenKeys(pathname))
   }, [pathname])
+
+  // 设置 menu 数据icon
+  useEffect(() => {
+    setMenuItemIcon(menus)
+    setMenuData([...menus])
+  }, [menus])
 
   // 设置当前展开的 subMenu
   const onOpenChange = (openKeys: string[]) => {
@@ -34,32 +53,6 @@ const LayoutMenu = () => {
     navigate(key)
   }
 
-  const items = [
-    {
-      key: '/home',
-      label: '首页',
-      icon: <AppstoreOutlined />
-    },
-    {
-      key: '/echarts',
-      label: 'Echarts',
-      icon: <BarChartOutlined />,
-      children: [{ key: '/echarts/echarts-gl', label: 'EchartsGl' }]
-    },
-    {
-      key: '/antv',
-      label: 'Antv',
-      icon: <LineChartOutlined />,
-      children: [{ key: '/antv/antv-l7', label: 'AntvL7' },{ key: '/antv/GaodeMap', label: 'GaodeMap' }]
-    },
-    {
-      key: '/system',
-      label: '系统管理',
-      icon: <SettingOutlined />,
-      children: [{ key: '/system/menu', label: '菜单管理' }]
-    }
-  ]
-
   return (
     <Sider width={200} theme="light" collapsible={true}>
       <Menu
@@ -67,7 +60,7 @@ const LayoutMenu = () => {
         triggerSubMenuAction="click"
         openKeys={openKeys}
         selectedKeys={selectedKeys}
-        items={items}
+        items={menuData}
         onClick={handleClickMenu}
         onOpenChange={onOpenChange}
       />
