@@ -1,27 +1,37 @@
+import { useNavigate } from 'react-router-dom'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStores } from 'src/stores'
 
 const TagsView = observer(() => {
   const {
-    appStore: { themeConfig }
+    appStore: { themeConfig, tagActiveKey, tagsList, setTagsList, setTagActiveKey }
   } = useStores()
+  const navigate = useNavigate()
+  // 切换面板的回调
+  const onChange = (newActiveKey: string) => {
+    setTagActiveKey(newActiveKey)
+    navigate(newActiveKey)
+  }
+  // 删除页签的回调
+  const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string) => {
+    const newTagsList = tagsList?.filter((item) => item.key !== targetKey)
+    const lastTagKey = newTagsList?.at(-1)?.key as string
+    navigate(lastTagKey)
+    setTagActiveKey(lastTagKey)
+    setTagsList(newTagsList)
+  }
 
   return (
     <>
       {themeConfig.tagsView && (
         <Tabs
           hideAdd
-          defaultActiveKey="1"
+          activeKey={tagActiveKey}
           type="editable-card"
-          items={new Array(30).fill(null).map((_, i) => {
-            const id = String(i)
-            return {
-              label: `Tab-${id}`,
-              key: id,
-              disabled: i === 28
-            }
-          })}
+          items={tagsList}
+          onChange={onChange}
+          onEdit={onEdit}
         />
       )}
     </>

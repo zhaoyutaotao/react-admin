@@ -1,3 +1,4 @@
+import type { TabsProps } from 'antd'
 import { makeAutoObservable } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 
@@ -46,6 +47,9 @@ interface MenuNode {
 type KeyLabelObject = Record<string, string>
 
 class AppStore {
+  /**
+   * 主题配置
+   */
   themeConfig: ThemeConfig = {
     isDark: false,
     isGray: false,
@@ -56,8 +60,22 @@ class AppStore {
     colorPrimary: '#1677ff',
     navMode: 'mixed'
   }
+  /**
+   * 菜单list
+   */
   menuList: MenuNode[] = []
+  /**
+   * 路由对象key:name
+   */
   breadcrumbNameMap: KeyLabelObject = {}
+  /**
+   * TagsView当前选中的key
+   */
+  tagActiveKey: string = ''
+  /**
+   * TagsView List
+   */
+  tagsList: TabsProps['items'] = []
   constructor() {
     // 响应式处理
     makeAutoObservable(this)
@@ -69,7 +87,10 @@ class AppStore {
     })
     this.getMemuList()
   }
-  // 是否主题样式
+  /**
+   * 设置主题样式
+   * @param config
+   */
   setThemeConfig = (config: Partial<ThemeConfig>) => {
     this.themeConfig = { ...this.themeConfig, ...config }
   }
@@ -111,6 +132,9 @@ class AppStore {
     ]
 
     this.breadcrumbNameMap = this.setBreadcrumbNameMap(this.menuList)
+
+    // 设置菜单第一项Tag值固定
+    this.setTagsViewAdd(this.menuList[0].key, true)
   }
   /**
    * 设置菜单key:label对象
@@ -127,6 +151,32 @@ class AppStore {
     }
     menuList.forEach((node) => traverse(node))
     return result
+  }
+  /**
+   * 设置tagsList值
+   * @param tag
+   */
+  setTagsViewAdd = (key: string, closeIcon?: boolean) => {
+    this.setTagActiveKey(key)
+    const isExist = this.tagsList?.some((item) => item.key === key)
+    if (!isExist) {
+      const label = this.breadcrumbNameMap[key]
+      this.setTagsList([...this.tagsList!, { key, label, closeIcon }])
+    }
+  }
+  /**
+   * 设置 tagsList 值
+   * @param tagsList
+   */
+  setTagsList = (tagsList: TabsProps['items']) => {
+    this.tagsList = tagsList
+  }
+  /**
+   * 设置tagActiveKey的值
+   * @param key
+   */
+  setTagActiveKey = (key: string) => {
+    this.tagActiveKey = key
   }
 }
 

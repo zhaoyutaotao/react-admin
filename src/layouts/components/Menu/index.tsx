@@ -5,6 +5,7 @@ import Icon from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import type { MenuProps } from 'antd'
 import { menus } from 'src/pages/System/Menu/data'
+import { useStores } from 'src/stores'
 import { getOpenKeys } from 'src/utils/util'
 
 const { Sider } = Layout
@@ -23,6 +24,9 @@ const setMenuItemIcon = (data: any[]) => {
 }
 
 const LayoutMenu = () => {
+  const {
+    appStore: { setTagsViewAdd }
+  } = useStores()
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const [menuData, setMenuData] = useState<any[]>([])
@@ -33,6 +37,7 @@ const LayoutMenu = () => {
   useEffect(() => {
     setSelectedKeys([pathname])
     setOpenKeys(getOpenKeys(pathname))
+    setTagsViewAdd(pathname)
   }, [pathname])
 
   // 设置 menu 数据icon
