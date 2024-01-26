@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Scene, PolygonLayer, LineLayer, PointLayer, Popup, Marker } from '@antv/l7'
 import { GaodeMap } from '@antv/l7-maps'
-import MapPoint from 'src/pages/Echarts/EchartsGl/point.png'
+import MapPoint from 'src/assets/images/map/point.png'
 
 const markerData = [
   {

@@ -4,6 +4,7 @@ import * as icons from '@ant-design/icons'
 import Icon from '@ant-design/icons'
 import { Menu, Layout } from 'antd'
 import type { MenuProps } from 'antd'
+import { cloneDeep } from 'lodash'
 import { menus } from 'src/pages/System/Menu/data'
 import { useStores } from 'src/stores'
 import { getOpenKeys } from 'src/utils/util'
@@ -21,6 +22,7 @@ const setMenuItemIcon = (data: any[]) => {
       setMenuItemIcon(item.children)
     }
   })
+  return data
 }
 
 const LayoutMenu = () => {
@@ -42,8 +44,8 @@ const LayoutMenu = () => {
 
   // 设置 menu 数据icon
   useEffect(() => {
-    setMenuItemIcon(menus)
-    setMenuData([...menus])
+    const deepMenus = setMenuItemIcon(cloneDeep(menus))
+    setMenuData(deepMenus)
   }, [menus])
 
   // 设置当前展开的 subMenu
