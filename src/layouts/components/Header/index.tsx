@@ -1,13 +1,22 @@
-import { Layout, Space } from 'antd'
+import { Layout, Space, theme } from 'antd'
+import Breadcrumb from '../Breadcrumb'
 import AvatarUser from './components/AvatarUser'
 import Fullscreen from './components/Fullscreen'
 import Theme from './components/Theme'
 
 const { Header } = Layout
 const LayoutHeader = () => {
+  const {
+    token: { colorBgContainer }
+  } = theme.useToken()
+  
   return (
-    <Header className="flex justify-between items-center text-white">
-      <h2>React Admin</h2>
+    <Header
+      style={{ padding: 0, background: colorBgContainer }}
+      className="flex justify-between items-center text-white"
+    >
+      {/* 面包屑导航 */}
+      <Breadcrumb />
       <Space>
         {/* 主题设置 */}
         <Theme />

@@ -1,32 +1,16 @@
 import { useNavigate } from 'react-router-dom'
+import {
+  RedoOutlined,
+  CloseOutlined,
+  BorderHorizontalOutlined,
+  BorderLeftOutlined,
+  BorderInnerOutlined,
+  BorderRightOutlined
+} from '@ant-design/icons'
 import { Tabs, Dropdown } from 'antd'
 import type { TabsProps, MenuProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStores } from 'src/stores'
-
-// 右键菜单项
-const items: MenuProps['items'] = [
-  {
-    label: '刷新页面',
-    key: '1'
-  },
-  {
-    label: '关闭',
-    key: '2'
-  },
-  {
-    label: '关闭其他',
-    key: '3'
-  },
-  {
-    label: '关闭右侧',
-    key: '4'
-  },
-  {
-    label: '全部关闭',
-    key: '5'
-  }
-]
 
 const TagsView = observer(() => {
   const {
@@ -39,56 +23,60 @@ const TagsView = observer(() => {
     setTagActiveKey(newActiveKey)
     navigate(newActiveKey)
   }
+
   // 删除页签的回调
   const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string) => {
-    const newTagsList = tagsList?.filter((item) => item.key !== targetKey)
+    const newTagsList = tagsList?.filter((item) => item.key !== targetKey || item.closeIcon)
     const lastTagKey = newTagsList?.at(-1)?.key as string
     navigate(lastTagKey)
     setTagActiveKey(lastTagKey)
     setTagsList(newTagsList)
   }
 
-  // 右键点击tab菜单项
-  const onMenuClick: MenuProps['onClick'] = (e) => {
-    console.log(e,'eeeeeeeeee');
-    const {key} =e
-    switch (key) {
-      case '1':
-        // 刷新页面
-        navigate(0)
-        break
-      case '2':
-        // 关闭当前页
-        onEdit(key)
-        break
-      case '3':
-        // 关闭其他
-        onEdit(key)
-        break
-      case '4':
-        // 关闭右侧
-        onEdit(key)
-        break
-      case '5':
-        // 全部关闭
-        onEdit(key)
-        break
-      default:
-        break
+  // 右键菜单项
+  const itemsRender = (key: string): MenuProps['items'] => [
+    {
+      label: '刷新页面',
+      key: '1',
+      icon: <RedoOutlined />,
+      onClick: () => navigate(0)
+    },
+    {
+      label: '关闭',
+      key: '2',
+      icon: <CloseOutlined />,
+      disabled: key === '/home',
+      onClick: () => onEdit(key)
+    },
+    {
+      label: '关闭其他',
+      key: '3',
+      icon: <BorderHorizontalOutlined />
+    },
+    {
+      label: '关闭左侧',
+      key: '4',
+      icon: <BorderRightOutlined />
+    },
+    {
+      label: '关闭右侧',
+      key: '5',
+      icon: <BorderLeftOutlined />
+    },
+    {
+      label: '全部关闭',
+      key: '6',
+      icon: <BorderInnerOutlined />
     }
-  }
+  ]
 
   // 替换 TabBar，用于二次封装标签头,添加右键事件Dropdown
   const renderTabBar: TabsProps['renderTabBar'] = (props, DefaultTabBar) => {
-    console.log(props.editable.removeIcon,'propsprops');
-    
-   return (
+    return (
       <DefaultTabBar {...props}>
         {(node) => {
-          console.log(node,'node-----');
-          
           return (
-            <Dropdown menu={{ items, onClick: onMenuClick }} trigger={['contextMenu']}>
+            <Dropdown menu={{ items: itemsRender(node.key as string) }} trigger={['contextMenu']}>
               {node}
             </Dropdown>
           )

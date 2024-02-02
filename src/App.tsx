@@ -16,6 +16,14 @@ const App = observer(() => {
     token: {
       // 主题色
       colorPrimary: themeConfig.colorPrimary
+    },
+    components: {
+      Layout: {
+        siderBg: '#fff',
+        headerHeight: 64,
+        triggerBg: '#fff',
+        triggerHeight: 48
+      }
     }
   }
   return (

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import * as icons from '@ant-design/icons'
-import Icon from '@ant-design/icons'
-import { Menu, Layout } from 'antd'
+import Icon, { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
+import { Menu, Layout, theme, Button } from 'antd'
 import type { MenuProps } from 'antd'
 import { cloneDeep } from 'lodash'
 import { menus } from 'src/pages/System/Menu/data'
@@ -24,8 +24,20 @@ const setMenuItemIcon = (data: any[]) => {
   })
   return data
 }
+/**
+ * 侧边栏宽度
+ */
+const siderWidth = 200
+/**
+ * 侧边栏收起宽度
+ */
+const siderCollapsedWidth = 80
 
 const LayoutMenu = () => {
+  const {
+    token: { colorBgContainer, Layout: { headerHeight = 64, triggerHeight = 48 } = {} }
+  } = theme.useToken()
+
   const {
     appStore: { setTagsViewAdd }
   } = useStores()
@@ -34,7 +46,7 @@ const LayoutMenu = () => {
   const [menuData, setMenuData] = useState<any[]>([])
   const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname])
   const [openKeys, setOpenKeys] = useState<string[]>([])
-
+  const [collapsed, setCollapsed] = useState(false)
   // 刷新页面菜单保持高亮
   useEffect(() => {
     setSelectedKeys([pathname])
@@ -61,7 +73,25 @@ const LayoutMenu = () => {
   }
 
   return (
-    <Sider width={200} theme="light" collapsible={true}>
+    <Sider
+      width={siderWidth}
+      collapsedWidth={siderCollapsedWidth}
+      collapsible
+      collapsed={collapsed}
+      trigger={
+        <Button
+          type="text"
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setCollapsed(!collapsed)}
+        />
+      }
+    >
+      <div
+        style={{ height: headerHeight, background: colorBgContainer }}
+        className="flex items-center justify-center"
+      >
+        <h1>{collapsed ? 'admin' : 'react-admin'}</h1>
+      </div>
       <Menu
         mode="inline"
         triggerSubMenuAction="click"
@@ -70,6 +100,8 @@ const LayoutMenu = () => {
         items={menuData}
         onClick={handleClickMenu}
         onOpenChange={onOpenChange}
+        className="overflow-auto"
+        style={{ height: `calc(100vh - ${headerHeight + triggerHeight}px)` }}
       />
     </Sider>
   )

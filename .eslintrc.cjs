@@ -8,7 +8,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    "plugin:react/jsx-runtime" // 'React' must be in scope when using JSX 解决页面不引用React报错问题
+    'plugin:react/jsx-runtime' // 'React' must be in scope when using JSX 解决页面不引用React报错问题
   ],
   overrides: [
     {
@@ -36,9 +36,9 @@ module.exports = {
    */
   rules: {
     // eslint http://eslint.cn/docs/rules
-    "no-var": "error", // 要求使用 let 或 const 而不是 var
-
+    'no-var': 'error', // 要求使用 let 或 const 而不是 var
+    "react/prop-types": "off",
     // typeScript https://typescript-eslint.io/rules
-    "@typescript-eslint/no-explicit-any": "off", // 禁止使用 any 类型
+    '@typescript-eslint/no-explicit-any': 'off', // 禁止使用 any 类型
   }
 }
