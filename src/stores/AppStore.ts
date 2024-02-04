@@ -1,4 +1,3 @@
-import type { TabsProps } from 'antd'
 import { makeAutoObservable } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
 import { menus } from 'src/pages/System/Menu/data'
@@ -47,6 +46,12 @@ interface MenuNode {
 
 type KeyLabelObject = Record<string, string>
 
+interface TagsProps {
+  key: string
+  label: string
+  closable?: boolean
+}
+
 class AppStore {
   /**
    * 主题配置
@@ -76,7 +81,7 @@ class AppStore {
   /**
    * TagsView List
    */
-  tagsList: TabsProps['items'] = []
+  tagsList: TagsProps[] = []
   constructor() {
     // 响应式处理
     makeAutoObservable(this)
@@ -103,7 +108,7 @@ class AppStore {
     this.breadcrumbNameMap = this.setBreadcrumbNameMap(this.menuList)
 
     // 设置菜单第一项Tag值固定
-    this.setTagsViewAdd(this.menuList[0].key, true)
+    this.setTagsViewAdd(this.menuList[0].key, false)
   }
   /**
    * 设置菜单key:label对象
@@ -125,19 +130,19 @@ class AppStore {
    * 设置tagsList值
    * @param tag
    */
-  setTagsViewAdd = (key: string, closeIcon?: boolean) => {
+  setTagsViewAdd = (key: string, closable?: boolean) => {
     this.setTagActiveKey(key)
     const isExist = this.tagsList?.some((item) => item.key === key)
     if (!isExist) {
       const label = this.breadcrumbNameMap[key]
-      this.setTagsList([...this.tagsList!, { key, label, closeIcon }])
+      this.setTagsList([...this.tagsList!, { key, label, closable: closable ?? true }])
     }
   }
   /**
    * 设置 tagsList 值
    * @param tagsList
    */
-  setTagsList = (tagsList: TabsProps['items']) => {
+  setTagsList = (tagsList: TagsProps[]) => {
     this.tagsList = tagsList
   }
   /**

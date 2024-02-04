@@ -26,7 +26,13 @@ const TagsView = observer(() => {
 
   // 删除页签的回调
   const onEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string) => {
-    const newTagsList = tagsList?.filter((item) => item.key !== targetKey || item.closeIcon)
+    handleTabOperation(
+      (tag: { key: string; closable: boolean }) => tag.key !== targetKey || !tag.closable
+    )
+  }
+  // 页签操作的方法
+  const handleTabOperation = (filterFunc: (tag: any, index: number) => void) => {
+    const newTagsList = tagsList?.filter(filterFunc)
     const lastTagKey = newTagsList?.at(-1)?.key as string
     navigate(lastTagKey)
     setTagActiveKey(lastTagKey)
@@ -46,27 +52,45 @@ const TagsView = observer(() => {
       key: '2',
       icon: <CloseOutlined />,
       disabled: key === '/home',
-      onClick: () => onEdit(key)
+      onClick: () =>
+        handleTabOperation(
+          (tag: { key: string; closable: boolean }) => tag.key !== key || !tag.closable
+        )
     },
     {
       label: '关闭其他',
       key: '3',
-      icon: <BorderHorizontalOutlined />
+      icon: <BorderHorizontalOutlined />,
+      onClick: () =>
+        handleTabOperation(
+          (tag: { key: string; closable: boolean }) => tag.key === key || !tag.closable
+        )
     },
     {
       label: '关闭左侧',
       key: '4',
-      icon: <BorderRightOutlined />
+      icon: <BorderRightOutlined />,
+      onClick: () =>
+        handleTabOperation(
+          (tag: { closable: boolean }, index: number) =>
+            index >= tagsList?.findIndex((t) => t.key === key) || !tag.closable
+        )
     },
     {
       label: '关闭右侧',
       key: '5',
-      icon: <BorderLeftOutlined />
+      icon: <BorderLeftOutlined />,
+      onClick: () =>
+        handleTabOperation(
+          (tag: { closable: boolean }, index: number) =>
+            index <= tagsList?.findIndex((t) => t.key === key) || !tag.closable
+        )
     },
     {
       label: '全部关闭',
       key: '6',
-      icon: <BorderInnerOutlined />
+      icon: <BorderInnerOutlined />,
+      onClick: () => handleTabOperation((tag: { closable: boolean }) => !tag.closable) // 这会过滤掉所有标签
     }
   ]
 
