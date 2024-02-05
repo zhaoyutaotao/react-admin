@@ -20,6 +20,15 @@ export const menus = [
     ]
   },
   {
+    key: '/frame',
+    label: '外部页面',
+    icon: 'LinkOutlined',
+    children: [
+      { key: 'https://ant-design.antgroup.com/components/overview-cn', label: 'Antd', isext: '1' },
+      { key: '/frame/vite', label: 'Vite(内嵌)' }
+    ]
+  },
+  {
     key: '/system',
     label: '系统管理',
     icon: 'SettingOutlined',

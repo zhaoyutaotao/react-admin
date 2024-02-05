@@ -68,8 +68,13 @@ const LayoutMenu = () => {
     setOpenKeys([latestOpenKey])
   }
   // 点击当前菜单跳转页面
-  const handleClickMenu: MenuProps['onClick'] = ({ key }: { key: string }) => {
-    navigate(key)
+  const handleClickMenu: MenuProps['onClick'] = ({ key, item }: { key: string; item: any }) => {
+    if (item?.props?.isext === '1') {
+      // 外部链接，页面跳转
+      window.open(key)
+    } else {
+      navigate(key)
+    }
   }
 
   return (
