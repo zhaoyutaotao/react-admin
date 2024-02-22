@@ -1,4 +1,5 @@
 import BasicLayout from 'src/layouts'
+import Ahooks from 'src/pages/Frame/Ahooks'
 import Vite from 'src/pages/Frame/Vite'
 import { RouteObject } from '../interface'
 
@@ -10,6 +11,10 @@ const frameRouter: Array<RouteObject> = [
       {
         path: '/frame/vite',
         element: <Vite />
+      },
+      {
+        path: '/frame/ahooks',
+        element: <Ahooks />
       }
     ]
   }

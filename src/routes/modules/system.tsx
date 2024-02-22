@@ -13,21 +13,11 @@ const systemRouter: Array<RouteObject> = [
       {
         path: '/system/user',
         element: <User />
-      }
-    ]
-  },
-  {
-    element: <BasicLayout />,
-    children: [
+      },
       {
         path: '/system/role',
         element: <Role />
-      }
-    ]
-  },
-  {
-    element: <BasicLayout />,
-    children: [
+      },
       {
         path: '/system/menu',
         element: (

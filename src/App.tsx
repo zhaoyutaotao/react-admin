@@ -21,6 +21,7 @@ const App = observer(() => {
       Layout: {
         siderBg: '#fff',
         headerHeight: 64,
+        headerPadding: '0 20px',
         triggerBg: '#fff',
         triggerHeight: 48
       }

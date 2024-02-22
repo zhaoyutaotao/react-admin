@@ -9,15 +9,12 @@ const LayoutHeader = () => {
   const {
     token: { colorBgContainer }
   } = theme.useToken()
-  
+
   return (
-    <Header
-      style={{ padding: 0, background: colorBgContainer }}
-      className="flex justify-between items-center text-white"
-    >
+    <Header style={{ background: colorBgContainer }} className="flex items-center">
       {/* 面包屑导航 */}
       <Breadcrumb />
-      <Space>
+      <Space className='ml-auto'>
         {/* 主题设置 */}
         <Theme />
         {/* 全屏 */}

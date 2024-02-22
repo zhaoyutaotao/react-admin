@@ -20,12 +20,26 @@ export const menus = [
     ]
   },
   {
+    key: '/layout',
+    label: '布局',
+    icon: 'LayoutOutlined',
+    children: [
+      { key: '/layout/dataScreen', label: '数据大屏' },
+      { key: '/layout/nomenu', label: '隐藏菜单' }
+    ]
+  },
+  {
     key: '/frame',
     label: '外部页面',
     icon: 'LinkOutlined',
     children: [
-      { key: 'https://ant-design.antgroup.com/components/overview-cn', label: 'Antd', isext: '1' },
-      { key: '/frame/vite', label: 'Vite(内嵌)' }
+      {
+        key: 'https://ant-design.antgroup.com/components/overview-cn',
+        label: 'Antd(外链)',
+        isext: '1'
+      },
+      { key: '/frame/vite', label: 'Vite(内嵌)' },
+      { key: '/frame/ahooks', label: 'Ahooks(内嵌)' }
     ]
   },
   {
