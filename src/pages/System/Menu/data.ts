@@ -20,6 +20,14 @@ export const menus = [
     ]
   },
   {
+    key: '/plugins',
+    label: '一些插件',
+    icon: 'UngroupOutlined',
+    children: [
+      { key: '/plugins/wangeditor', label: 'WangEditor' },
+    ]
+  },
+  {
     key: '/layout',
     label: '布局',
     icon: 'LayoutOutlined',

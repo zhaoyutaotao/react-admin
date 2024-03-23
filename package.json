@@ -13,6 +13,8 @@
     "@ant-design/icons": "^5.2.5",
     "@antv/l7": "^2.19.3",
     "@antv/l7-maps": "^2.19.3",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-react": "^1.0.6",
     "ahooks": "^3.7.8",
     "antd": "^5.13.3",
     "classnames": "^2.5.1",
