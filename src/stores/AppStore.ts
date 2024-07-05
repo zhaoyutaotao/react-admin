@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
+import { menus } from 'src/pages/System/Menu/data'
 
 export interface ThemeConfig {
   /**
@@ -35,7 +36,26 @@ export interface ThemeConfig {
    */
   footer: boolean
 }
+
+interface MenuNode {
+  key: string
+  label: string
+  icon?: string
+  children?: MenuNode[]
+}
+
+type KeyLabelObject = Record<string, string>
+
+interface TagsProps {
+  key: string
+  label: string
+  closable?: boolean
+}
+
 class AppStore {
+  /**
+   * 主题配置
+   */
   themeConfig: ThemeConfig = {
     isDark: false,
     isGray: false,
@@ -46,6 +66,22 @@ class AppStore {
     colorPrimary: '#1677ff',
     navMode: 'mixed'
   }
+  /**
+   * 菜单list
+   */
+  menuList: MenuNode[] = []
+  /**
+   * 路由对象key:name
+   */
+  breadcrumbNameMap: KeyLabelObject = {}
+  /**
+   * TagsView当前选中的key
+   */
+  tagActiveKey: string = ''
+  /**
+   * TagsView List
+   */
+  tagsList: TagsProps[] = []
   constructor() {
     // 响应式处理
     makeAutoObservable(this)
@@ -55,10 +91,66 @@ class AppStore {
       properties: ['themeConfig'], // 需要持久化的数据是什么，此数据需要为上面声明了的变量，并且传值方式为[string]
       storage: window.localStorage //存储位置，常见的就是localStorage/sessionStorage
     })
+    this.getMemuList()
   }
-  // 是否主题样式
+  /**
+   * 设置主题样式
+   * @param config
+   */
   setThemeConfig = (config: Partial<ThemeConfig>) => {
     this.themeConfig = { ...this.themeConfig, ...config }
+  }
+  /**
+   * 获取菜单
+   */
+  getMemuList = () => {
+    this.menuList = menus
+    this.breadcrumbNameMap = this.setBreadcrumbNameMap(this.menuList)
+
+    // 设置菜单第一项Tag值固定
+    this.setTagsViewAdd(this.menuList[0].key, false)
+  }
+  /**
+   * 设置菜单key:label对象
+   * @param menuList 菜单列表
+   * @returns {key:label}
+   */
+  setBreadcrumbNameMap = (menuList: MenuNode[]) => {
+    const result: KeyLabelObject = {}
+    function traverse(node: MenuNode) {
+      result[node.key] = node.label
+      if (node.children && node.children.length > 0) {
+        node.children.forEach((child) => traverse(child))
+      }
+    }
+    menuList.forEach((node) => traverse(node))
+    return result
+  }
+  /**
+   * 设置tagsList值
+   * @param tag
+   */
+  setTagsViewAdd = (key: string, closable?: boolean) => {
+    this.setTagActiveKey(key)
+    const isExist = this.tagsList?.some((item) => item.key === key)
+    if (!isExist) {
+      const label = this.breadcrumbNameMap[key]
+      this.setTagsList([...this.tagsList!, { key, label, closable: closable ?? true }])
+    }
+  }
+  /**
+   * 设置 tagsList 值
+   * @param tagsList
+   */
+  setTagsList = (tagsList: TagsProps[]) => {
+    this.tagsList = tagsList
+  }
+  /**
+   * 设置tagActiveKey的值
+   * @param key
+   */
+  setTagActiveKey = (key: string) => {
+    this.tagActiveKey = key
   }
 }
 

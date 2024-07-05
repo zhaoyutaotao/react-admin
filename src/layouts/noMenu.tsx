@@ -2,20 +2,19 @@ import { Outlet } from 'react-router-dom'
 import { Layout } from 'antd'
 import LayoutFooter from './components/Footer'
 import LayoutHeader from './components/Header'
-import LayoutMenu from './components/Menu'
 import TagsView from './components/TagsView'
 
 const { Content } = Layout
 
-const BasicLayout = () => {
+const NoMenuLayout = () => {
   return (
     <Layout>
-      <LayoutMenu />
       <Layout className="h-screen">
         <LayoutHeader />
         <Layout>
           <TagsView />
           <Content className="m-5">
+            {/* Outlet就是路由加载的页面要显示的位子 */}
             <Outlet />
           </Content>
           <LayoutFooter />
@@ -24,4 +23,4 @@ const BasicLayout = () => {
     </Layout>
   )
 }
-export default BasicLayout
+export default NoMenuLayout
