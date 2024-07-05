@@ -1,8 +1,10 @@
-import { Suspense, lazy } from 'react'
+import { lazy } from 'react'
 import BasicLayout from 'src/layouts'
 import Role from 'src/pages/System/Role'
 import User from 'src/pages/System/User'
 import { RouteObject } from '../interface'
+import lazyLoad from '../utils/lazyLoad'
+
 const Menu = lazy(() => import('src/pages/System/Menu'))
 
 // 系统管理
@@ -20,11 +22,7 @@ const systemRouter: Array<RouteObject> = [
       },
       {
         path: '/system/menu',
-        element: (
-          <Suspense fallback={<></>}>
-            <Menu />
-          </Suspense>
-        )
+        element: lazyLoad(Menu)
       }
     ]
   }
