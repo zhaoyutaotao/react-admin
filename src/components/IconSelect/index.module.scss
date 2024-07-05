@@ -1,0 +1,28 @@
+.select_wrap {
+  position: relative;
+  .icon {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    z-index: 1;
+  }
+  :global {
+    .ant-select .ant-select-selector {
+      padding-left: 32px;
+    }
+  }
+}
+.select_list {
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px;
+  overflow: auto;
+}
+.select_list_item {
+  padding: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(20, 24, 28, 0.04);
+  }
+}
