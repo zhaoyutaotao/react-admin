@@ -31,10 +31,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install pnpm
-        run: |
-          curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-          echo "$(pnpm bin)" >> $GITHUB_PATH
-
+        run: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
       - name: Cache pnpm modules
         uses: actions/cache@v2
         with:
