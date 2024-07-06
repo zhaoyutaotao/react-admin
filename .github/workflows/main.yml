@@ -24,7 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '16'
@@ -32,7 +32,7 @@ jobs:
 
       - name: Install pnpm
         run: |
-          npm install -g pnpm
+          curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
           echo "$(pnpm bin)" >> $GITHUB_PATH
 
       - name: Cache pnpm modules
