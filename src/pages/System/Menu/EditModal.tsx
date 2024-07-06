@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { useRequest } from 'ahooks'
-import { TreeSelect, Form, Input, message, Modal, Radio, InputNumber } from 'antd'
+// import { useState } from 'react'
+// import { useRequest } from 'ahooks'
+import { TreeSelect, Form, Input, Modal, Radio, InputNumber } from 'antd'
 import { IconSelect } from 'src/components/IconSelect'
 // import {
 //   addMenu,
@@ -16,11 +16,11 @@ interface Props {
   onCancel?: () => void
 }
 
-const EditModal: React.FC<Props> = ({ id, isModalOpen, onOk, onCancel }) => {
+const EditModal: React.FC<Props> = ({ id, isModalOpen, onCancel }) => {
   const isEdit = !!id
   const title = isEdit ? '编辑' : '新增'
   const [form] = Form.useForm()
-  const [loading, setLoading] = useState<boolean>(false)
+  // const [loading, setLoading] = useState<boolean>(false)
 
   // useRequest(getMenuDetail, {
   //   ready: isModalOpen && isEdit,
@@ -73,7 +73,7 @@ const EditModal: React.FC<Props> = ({ id, isModalOpen, onOk, onCancel }) => {
       destroyOnClose
       onOk={handleOk}
       onCancel={onCancel}
-      confirmLoading={loading}
+      // confirmLoading={loading}
       width={600}
     >
       <Form
