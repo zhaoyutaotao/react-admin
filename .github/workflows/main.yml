@@ -31,7 +31,9 @@ jobs:
           cache: 'pnpm'
 
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: |
+          npm install -g pnpm
+          echo "$(pnpm bin)" >> $GITHUB_PATH
 
       - name: Cache pnpm modules
         uses: actions/cache@v2
