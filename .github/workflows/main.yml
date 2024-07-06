@@ -28,10 +28,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '16'
-          cache: 'pnpm'
-
       - name: Install pnpm
-        run: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
+        run: npm i -g pnpm
       - name: Cache pnpm modules
         uses: actions/cache@v2
         with:
