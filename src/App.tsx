@@ -28,7 +28,7 @@ const App = observer(() => {
     }
   }
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ConfigProvider locale={zhCN} theme={antdTheme}>
         <AntdApp>
           <Router />
