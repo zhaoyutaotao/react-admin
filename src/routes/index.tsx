@@ -3,18 +3,10 @@ import { RouteObject } from './interface'
 import Login from 'src/pages/Login'
 
 // 导入所有router
-const metaRouters: Record<
-  string,
-  (() => Promise<{ default: RouteObject[] }>) | { default: RouteObject[] }
-> = import.meta.glob('./modules/*.tsx', { eager: true })
-// 处理路由
-export const routerArray: RouteObject[] = []
-Object.keys(metaRouters).forEach((item) => {
-  const routeGetter = metaRouters[item]
-  if ('default' in routeGetter) {
-    routerArray.push(...routeGetter.default)
-  }
-})
+const loadRouters = () => {
+  const metaRouters = import.meta.glob<{ default: RouteObject[] }>('./modules/*.tsx', { eager: true })
+  return Object.values(metaRouters).flatMap(module => module.default)
+}
 
 export const rootRouter: RouteObject[] = [
   {
@@ -25,7 +17,7 @@ export const rootRouter: RouteObject[] = [
     path: '/login',
     element: <Login />,
   },
-  ...routerArray,
+  ...loadRouters(),
   {
     path: '*',
     element: <Navigate to="/404" />

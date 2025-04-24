@@ -7,7 +7,7 @@ import type { MenuProps } from 'antd'
 import { cloneDeep } from 'lodash'
 import { menus } from 'src/pages/System/Menu/data'
 import { useStores } from 'src/stores'
-import { getOpenKeys } from 'src/utils/util'
+import { findMenuByPath, getOpenKeys } from 'src/common/utils/util'
 
 const { Sider } = Layout
 
@@ -68,10 +68,11 @@ const LayoutMenu = () => {
     setOpenKeys([latestOpenKey])
   }
   // 点击当前菜单跳转页面
-  const handleClickMenu: MenuProps['onClick'] = ({ key, item }: { key: string; item: any }) => {
-    if (item?.props?.isext === '1') {
+  const handleClickMenu: MenuProps['onClick'] = ({ key }: { key: string }) => {
+    const item = findMenuByPath(key, menuData)
+    if (item?.link) {
       // 外部链接，页面跳转
-      window.open(key)
+      window.open(item?.link)
     } else {
       navigate(key)
     }

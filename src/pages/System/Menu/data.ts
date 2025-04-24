@@ -5,29 +5,6 @@ export const menus = [
     icon: 'AppstoreOutlined'
   },
   {
-    key: '/echarts',
-    label: 'Echarts',
-    icon: 'BarChartOutlined',
-    children: [{ key: '/echarts/echarts-gl', label: 'EchartsGl' }]
-  },
-  {
-    key: '/antv',
-    label: 'Antv',
-    icon: 'LineChartOutlined',
-    children: [
-      { key: '/antv/antv-l7', label: 'AntvL7' },
-      { key: '/antv/GaodeMap', label: 'GaodeMap' }
-    ]
-  },
-  {
-    key: '/plugins',
-    label: '一些插件',
-    icon: 'UngroupOutlined',
-    children: [
-      { key: '/plugins/wangeditor', label: 'WangEditor' },
-    ]
-  },
-  {
     key: '/layout',
     label: '布局',
     icon: 'LayoutOutlined',
@@ -42,12 +19,11 @@ export const menus = [
     icon: 'LinkOutlined',
     children: [
       {
-        key: 'https://ant-design.antgroup.com/components/overview-cn',
+        key: '/frame/antd',
         label: 'Antd(外链)',
-        isext: '1'
+        link: 'https://ant-design.antgroup.com/components/overview-cn'
       },
-      { key: '/frame/vite', label: 'Vite(内嵌)' },
-      { key: '/frame/ahooks', label: 'Ahooks(内嵌)' }
+      { key: '/frame/vite', label: 'Vite(内嵌)' }
     ]
   },
   {

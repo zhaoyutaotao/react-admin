@@ -10,5 +10,4 @@ export interface RouteObject {
   element?: React.ReactNode
   path?: string
   meta?: MetaProps
-  isLink?: string
 }
