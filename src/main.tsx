@@ -1,7 +1,5 @@
 import ReactDOM from 'react-dom/client'
 import 'src/styles/index.css'
-// preflight.css拷贝的tailwindcss中文件解决button透明问题
-import 'src/styles/preflight.css'
 import App from './App.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

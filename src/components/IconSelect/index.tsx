@@ -9,12 +9,10 @@ function isIconName(key: any): key is keyof typeof icons {
   return typeof icons[key as keyof typeof icons] === 'object' && key !== 'default'
 }
 
-interface Props extends SelectProps {}
-
 /**
  * Icon选择
  */
-export const IconSelect: React.FC<Props> = (props) => {
+export const IconSelect: React.FC<SelectProps> = (props) => {
   const { onChange } = props
   // 里面有一些是方法,要筛选一遍,否则页面会报错
   const iconList = Object.keys(icons).filter(isIconName)

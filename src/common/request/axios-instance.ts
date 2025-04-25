@@ -15,7 +15,7 @@ class RequestHttp {
         config.headers = { ...config.headers }
         if (this.isExcludeAuthorization(config.url ?? '')) {
           // 部分api路径排除携带token
-          config?.headers && delete config?.headers?.Authorization
+          // config?.headers && delete config?.headers?.Authorization
         } else if (!config.headers.Authorization) {
           // 鉴权 token
           config.headers.Authorization = `Bearer test`
