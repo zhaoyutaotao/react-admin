@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // 参考：https://prettier.io/docs/en/options.html
   // 一行最多 100 字符
   printWidth: 100,

@@ -40,7 +40,7 @@ export default [
     ignores: [
       '**/*.config.js', // 各类 .config.js 文件
       '**/*.config.ts', // 各类 .config.ts 文件
-      '.prettierrc.cjs', // Prettier 配置文件
+      '.prettierrc.js', // Prettier 配置文件
       'dist' // 构建目录
     ]
   }
