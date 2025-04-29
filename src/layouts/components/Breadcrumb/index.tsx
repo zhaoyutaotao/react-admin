@@ -1,4 +1,4 @@
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link } from 'react-router'
 import { Breadcrumb } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useStores } from 'src/stores'

@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import { Layout } from 'antd'
 import LayoutFooter from './components/Footer'
 import LayoutHeader from './components/Header'

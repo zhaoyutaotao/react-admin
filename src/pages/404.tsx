@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { Button, Result } from 'antd'
 
 const NoFoundPage: React.FC = () => {

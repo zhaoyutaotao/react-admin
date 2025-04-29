@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { App, Avatar, Dropdown, Space } from 'antd'
 import type { MenuProps } from 'antd'
 

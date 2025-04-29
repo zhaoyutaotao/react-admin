@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 import * as icons from '@ant-design/icons'
 import Icon, { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Menu, Layout, theme, Button } from 'antd'
