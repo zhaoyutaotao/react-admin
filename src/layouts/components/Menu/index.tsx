@@ -107,7 +107,7 @@ const LayoutMenu = () => {
         onClick={handleClickMenu}
         onOpenChange={onOpenChange}
         className="overflow-auto"
-        style={{ height: `calc(100vh - ${headerHeight + triggerHeight}px)` }}
+        style={{ height: `calc(100vh - ${Number(headerHeight) + Number(triggerHeight)}px)` }}
       />
     </Sider>
   )

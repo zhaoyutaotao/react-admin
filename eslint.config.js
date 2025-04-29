@@ -28,6 +28,11 @@ export default [
         ...globals.node // 注入 Node 全局变量（如 process、__dirname）
       }
     },
+    settings: {
+      react: {
+        version: 'detect' // 自动检测 package.json 中的 React 版本
+      }
+    },
     rules: {
       'no-var': 'error', // 禁用 var，强制使用 let/const
       '@typescript-eslint/no-explicit-any': 'off', // 允许使用 any（可按需开启）
