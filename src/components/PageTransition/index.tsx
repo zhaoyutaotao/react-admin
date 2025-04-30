@@ -1,5 +1,5 @@
 import { Spin } from 'antd'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 
 interface PageTransitionProps {
@@ -28,7 +28,7 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
 }) => {
   return (
     <motion.div
-      className={classNames('page-container', wrapperClassName)}
+      className={clsx('page-container', wrapperClassName)}
       initial={{ x: -200, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: '100%', opacity: 0 }}

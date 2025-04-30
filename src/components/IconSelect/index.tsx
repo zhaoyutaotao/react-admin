@@ -2,7 +2,7 @@ import * as icons from '@ant-design/icons'
 import Icon from '@ant-design/icons'
 import type { SelectProps } from 'antd'
 import { Select } from 'antd'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import styles from './index.module.scss'
 
 function isIconName(key: any): key is keyof typeof icons {
@@ -41,7 +41,7 @@ export const IconSelect: React.FC<SelectProps> = (props) => {
           <div className={styles.select_list}>
             {iconList.map((key) => (
               <div
-                className={classNames(styles.select_list_item, {
+                className={clsx(styles.select_list_item, {
                   ['ant-select-item-option-selected']: key === props.value
                 })}
                 key={key}

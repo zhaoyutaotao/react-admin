@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router'
+import { useLocation, useNavigate, Link } from 'react-router'
 import * as icons from '@ant-design/icons'
 import Icon, { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import { Menu, Layout, theme, Button } from 'antd'
 import type { MenuProps } from 'antd'
+import clsx from 'clsx'
 import { cloneDeep } from 'lodash'
+import IconLogin from 'src/assets/react.svg'
+import { findMenuByPath, getOpenKeys } from 'src/common/utils/util'
 import { menus } from 'src/pages/System/Menu/data'
 import { useStores } from 'src/stores'
-import { findMenuByPath, getOpenKeys } from 'src/common/utils/util'
 
 const { Sider } = Layout
 
@@ -92,12 +94,22 @@ const LayoutMenu = () => {
         />
       }
     >
-      <div
+      <Link
+        to="/"
         style={{ height: headerHeight, background: colorBgContainer }}
         className="flex items-center justify-center"
       >
-        <h1>{collapsed ? 'Salad' : 'Salad管理系统'}</h1>
-      </div>
+        <img src={IconLogin} alt="logo" />
+        <h1
+          className={clsx(
+            'transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap',
+            !collapsed && 'ml-2',
+            collapsed ? 'max-w-0' : 'max-w-[200px]'
+          )}
+        >
+          Salad管理系统
+        </h1>
+      </Link>
       <Menu
         mode="inline"
         triggerSubMenuAction="click"
