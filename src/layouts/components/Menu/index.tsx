@@ -97,14 +97,13 @@ const LayoutMenu = () => {
       <Link
         to="/"
         style={{ height: headerHeight, background: colorBgContainer }}
-        className="flex items-center justify-center"
+        className="flex items-center pl-5"
       >
         <img src={IconLogin} alt="logo" />
         <h1
           className={clsx(
-            'transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap',
-            !collapsed && 'ml-2',
-            collapsed ? 'max-w-0' : 'max-w-[200px]'
+            'text-lg transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2',
+            collapsed ? 'opacity-0' : 'opacity-100'
           )}
         >
           Salad管理系统
