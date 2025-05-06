@@ -7,8 +7,6 @@ import { IconSelect } from 'src/components/IconSelect'
 //   getMenuDetail,
 //   updateMenu
 // } from 'src/services/menu'
-import { menus } from './data'
-
 interface Props {
   id?: string
   isModalOpen: boolean
@@ -99,7 +97,7 @@ const EditModal: React.FC<Props> = ({ id, isModalOpen, onCancel }) => {
             placeholder="请选择上级菜单"
             fieldNames={{ label: 'name', value: 'id' }}
             dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            treeData={menus}
+            treeData={[]}
             treeNodeFilterProp="name"
           />
         </Form.Item>

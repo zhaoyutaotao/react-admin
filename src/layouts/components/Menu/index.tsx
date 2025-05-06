@@ -8,7 +8,6 @@ import clsx from 'clsx'
 import { cloneDeep } from 'lodash'
 import IconLogin from 'src/assets/react.svg'
 import { findMenuByPath, getOpenKeys } from 'src/common/utils/util'
-import { menus } from 'src/pages/System/Menu/data'
 import { useStores } from 'src/stores'
 
 const { Sider } = Layout
@@ -41,7 +40,7 @@ const LayoutMenu = () => {
   } = theme.useToken()
 
   const {
-    appStore: { setTagsViewAdd }
+    appStore: { setTagsViewAdd, menuList }
   } = useStores()
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -50,6 +49,7 @@ const LayoutMenu = () => {
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const [collapsed, setCollapsed] = useState(false)
   // 刷新页面菜单保持高亮
+
   useEffect(() => {
     setSelectedKeys([pathname])
     setOpenKeys(getOpenKeys(pathname))
@@ -58,9 +58,9 @@ const LayoutMenu = () => {
 
   // 设置 menu 数据icon
   useEffect(() => {
-    const deepMenus = setMenuItemIcon(cloneDeep(menus))
+    const deepMenus = setMenuItemIcon(cloneDeep(menuList))
     setMenuData(deepMenus)
-  }, [menus])
+  }, [menuList])
 
   // 设置当前展开的 subMenu
   const onOpenChange = (openKeys: string[]) => {

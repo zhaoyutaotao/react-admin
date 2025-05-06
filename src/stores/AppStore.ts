@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
-import { menus } from 'src/pages/System/Menu/data'
+import { getMenus } from 'src/services/system/menu'
 
 export interface ThemeConfig {
   /**
@@ -91,7 +91,7 @@ class AppStore {
       properties: ['themeConfig'], // 需要持久化的数据是什么，此数据需要为上面声明了的变量，并且传值方式为[string]
       storage: window.localStorage //存储位置，常见的就是localStorage/sessionStorage
     })
-    this.getMemuList()
+    this.getMenuList()
   }
   /**
    * 设置主题样式
@@ -103,12 +103,18 @@ class AppStore {
   /**
    * 获取菜单
    */
-  getMemuList = () => {
-    this.menuList = menus
-    this.breadcrumbNameMap = this.setBreadcrumbNameMap(this.menuList)
-
-    // 设置菜单第一项Tag值固定
-    this.setTagsViewAdd(this.menuList[0].key, false)
+  getMenuList = async () => {
+    try {
+      const res = await getMenus()
+      if (res?.data) {
+        this.menuList = res?.data
+        this.breadcrumbNameMap = this.setBreadcrumbNameMap(this.menuList)
+        // 设置菜单第一项Tag值固定
+        this.setTagsViewAdd(this.menuList[0].key, false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
   /**
    * 设置菜单key:label对象
@@ -123,7 +129,7 @@ class AppStore {
         node.children.forEach((child) => traverse(child))
       }
     }
-    menuList.forEach((node) => traverse(node))
+    menuList?.forEach((node) => traverse(node))
     return result
   }
   /**

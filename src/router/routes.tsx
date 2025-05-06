@@ -7,8 +7,9 @@ import NoMenuLayout from 'src/layouts/noMenu'
 // 页面组件（懒加载）
 const Login = lazy(() => import('src/pages/Login'))
 const Home = lazy(() => import('src/pages/Home'))
-const DataScree = lazy(() => import('src/pages/Layout/DataScree'))
-const Vite = lazy(() => import('src/pages/Frame/Vite'))
+const Vite = lazy(() => import('src/pages/Document/Vite'))
+const FullScreen = lazy(() => import('src/pages/Feature/FullScreen'))
+const NoMenu = lazy(() => import('src/pages/Feature/NoMenu'))
 const User = lazy(() => import('src/pages/System/User'))
 const Role = lazy(() => import('src/pages/System/Role'))
 const Menu = lazy(() => import('src/pages/System/Menu'))
@@ -27,19 +28,19 @@ const routes: RouteObject[] = [
     element: <BasicLayout />,
     children: [
       { path: '/home', element: <Home /> },
-      { path: '/frame/vite', element: <Vite /> },
+      { path: '/document/vite', element: <Vite /> },
       { path: '/system/user', element: <User /> },
       { path: '/system/role', element: <Role /> },
       { path: '/system/menu', element: <Menu /> }
     ]
   },
   {
-    path: '/layout/dataScreen',
-    element: <DataScree />
+    path: '/feature/full-screen',
+    element: <FullScreen />
   },
   {
     element: <NoMenuLayout />,
-    children: [{ path: '/layout/nomenu', element: <DataScree /> }]
+    children: [{ path: '/feature/nomenu', element: <NoMenu /> }]
   },
   {
     path: '/404',

@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import type { ColumnsType } from 'antd/es/table'
 import * as icons from '@ant-design/icons'
 import Icon from '@ant-design/icons'
+import { useRequest } from 'ahooks'
 import { Modal, Table, Button, message } from 'antd'
-import EditModal from './EditModal'
-import { menus } from './data'
 import { PageTransition } from 'src/components/PageTransition'
+import { getMenus } from 'src/services/system/menu'
+import EditModal from './EditModal'
 
 interface DataType {
   label: string
@@ -18,6 +19,10 @@ const Menu: React.FC = () => {
   const [messageApi, contextHolderMessage] = message.useMessage()
   const [id, setId] = useState<string | undefined>(undefined)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  // 获取菜单列表
+  const { data: menusRes } = useRequest(getMenus)
+  const menus = menusRes?.data || []
+  
   const columns: ColumnsType<DataType> = [
     {
       title: '菜单名称',

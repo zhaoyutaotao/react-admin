@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { IResponse } from 'src/services/interfaces'
 
@@ -31,6 +32,11 @@ class RequestHttp {
     this.service.interceptors.response.use(
       (response: AxiosResponse) => {
         const { data } = response
+        if (data.code > 0) {
+          const messageText = data.message ?? `服务异常`
+          message.error(messageText)
+          return Promise.reject(messageText)
+        }
         return data
       },
       async (error: AxiosError<any, any>) => {
