@@ -2,7 +2,7 @@ import request from 'src/common/request'
 import type { LoginRequest, UserInfoResponse } from './interfaces'
 
 export const login = async (params: LoginRequest) => {
-  return request.post<string>('/api/auth/login', params)
+  return request.post<{ token: string }>('/api/auth/login', params)
 }
 
 export const logout = async () => {

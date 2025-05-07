@@ -95,7 +95,7 @@ const LayoutMenu = () => {
       }
     >
       <Link
-        to="/"
+        to="/home"
         style={{ height: headerHeight, background: colorBgContainer }}
         className="flex items-center pl-5"
       >

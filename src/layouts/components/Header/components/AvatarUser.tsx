@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router'
 import { App, Avatar, Dropdown, Space } from 'antd'
 import type { MenuProps } from 'antd'
+import { removeToken } from 'src/common/utils/token-service'
 
 const AvatarUser = () => {
-  const { message, modal } = App.useApp()
+  const { modal } = App.useApp()
   const navigate = useNavigate()
 
   // 退出登录
@@ -14,7 +15,7 @@ const AvatarUser = () => {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        message.success('退出成功！')
+        removeToken()
         navigate('/login')
       }
     })
