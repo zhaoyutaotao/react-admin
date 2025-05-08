@@ -102,7 +102,7 @@ const LayoutMenu = () => {
         <img src={IconLogin} alt="logo" />
         <h1
           className={clsx(
-            'text-lg transition-all duration-300 ease-in-out overflow-hidden whitespace-nowrap ml-2',
+            'ml-2 overflow-hidden text-lg whitespace-nowrap transition-all duration-300 ease-in-out',
             collapsed ? 'opacity-0' : 'opacity-100'
           )}
         >

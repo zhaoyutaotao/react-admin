@@ -19,7 +19,7 @@ const Fullscreen = () => {
     screenfull.toggle()
   }
   return (
-    <div onClick={handleFullScreen} className="cursor-pointer text-xl ">
+    <div onClick={handleFullScreen} className="cursor-pointer text-xl">
       <Tooltip title="全屏">
         {fullScreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
       </Tooltip>

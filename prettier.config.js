@@ -31,7 +31,9 @@ export default {
   proseWrap: 'preserve',
   // 根据显示样式决定 html 要不要折行
   htmlWhitespaceSensitivity: 'css',
+  plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
   // import排序规则
   importOrder: ['^react(.*)', 'antd/(.*)', '<THIRD_PARTY_MODULES>', 'src/(.*)', '^[./]'],
-  plugins: ['prettier-plugin-tailwindcss', '@trivago/prettier-plugin-sort-imports']
+  tailwindStylesheet: './src/styles/index.css',
+  tailwindConfig: './tailwind.config.js'
 }
