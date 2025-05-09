@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "npm run lint:fix && npm run prettier",
+    "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx --report-unused-disable-directives --max-warnings 0 --fix --cache",
     "preview": "vite preview",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,scss,css}'"
+    "prettier": "prettier -c --write 'src/**/*.{js,jsx,ts,tsx,scss,css}'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/icons": "^6.0.0",
@@ -29,6 +31,8 @@
     "screenfull": "^6.0.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.25.1",
     "@tailwindcss/vite": "^4.1.4",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
@@ -41,6 +45,8 @@
     "eslint": "^9.25.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "sass": "^1.87.0",
