@@ -4,7 +4,7 @@ import { getToken } from 'src/common/utils/token-service'
 import { IResponse } from 'src/services/interfaces'
 
 const config = {
-  baseURL: '/',
+  baseURL: import.meta.env.VITE_API_ROOT,
   timeout: 30000
 }
 
@@ -70,7 +70,7 @@ class RequestHttp {
   private redirectToLogin() {
     window.location.href = '/login'
   }
-  
+
   get<T>(url: string, params?: object, config?: AxiosRequestConfig): Promise<IResponse<T>> {
     return this.service.get(url, { params, ...config })
   }
